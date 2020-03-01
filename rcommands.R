@@ -1,5 +1,6 @@
 library(lubridate)
 library(stringr)
+library(dplyr)
 # reading in data, not sure if this is correct, document says some sort of preprocessing is required, search alot but came up with this
 # this reads in all the data
 atlantic <- read.csv(file="atlantic.csv",sep=",",header = FALSE,stringsAsFactors = FALSE)
@@ -45,7 +46,7 @@ atlantic$V1 <- as.Date(atlantic$V1, format = "%Y%m%d")
 
 # take out data for a particular year
 
-year = list(1851,2005,2018)
+year = list(2018)
 hurrYear <- subset(atlantic, year(V1) == year)
 
 # list of names of hurricanes
@@ -59,6 +60,11 @@ for(row in 1:nrow(hurrYear)){
     hurricaneList[length(hurricaneList) + 1] = hurrYear[row,"names"]
   }
 }
+
+hurricaneList <- data.frame("names" = matrix(unlist(hurricaneList)),stringsAsFactors=FALSE)
+hurricaneList <- distinct(hurricaneList)
+hurricaneList$names <- trimws(hurricaneList$names)
+
 hurrYear[1,'names']
 
 
