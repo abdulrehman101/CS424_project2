@@ -41,3 +41,34 @@ atlantic <- subset(atlantic, V4 != "")
 # fix the date
 
 atlantic$V1 <- as.Date(atlantic$V1, format = "%Y%m%d")
+
+# take out data for a particular year
+
+year = list(1851,2005,2018)
+hurrYear <- subset(atlantic, year(V1) == year)
+
+# list of names of hurricanes
+
+hurricaneList = list()
+for(row in 1:nrow(hurrYear)){
+  if(hurrYear[row,"names"] == 'UNNAMED'){
+    hurricaneList[length(hurricaneList) + 1] = hurrYear[row,"V21"] 
+  }
+  else{
+    hurricaneList[length(hurricaneList) + 1] = hurrYear[row,"names"]
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
