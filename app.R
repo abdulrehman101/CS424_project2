@@ -8,28 +8,63 @@
 #
 
 library(shiny)
+library(shinydashboard) #To allow the making of UI Dashboard
+library(shinyWidgets)
 
-# Define UI for application that draws a histogram
 ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
-    )
+    
+    dashboardHeader(title = "Project 2"),
+    
+    dashboardSidebar(
+        
+        sidebarMenu(
+            
+            pickerInput(
+                inputId = "yearSelect",
+                label = "Select/Deselect the Years 05-18",
+                choices = "2005", #insert the choices array here
+                options = list(
+                    'actions-box' = TRUE,
+                    size = 10,
+                    'selected-text-format' = "count > 3"
+                    
+                ),#End of List
+                multiple = TRUE
+            ),#End of pickerInput for yearSelection
+            
+            
+            pickerInput(
+                inputId = "hurrSelect",
+                label = "Select/Deselect the Hurricane",
+                choices = "Abdul", #insert the choices array here
+                options = list(
+                    'actions-box' = TRUE,
+                    size = 10,
+                    'selected-text-format' = "count > 3"
+                    
+                ),#End of List
+                multiple = TRUE
+            )#End of pickerInput for HurricaneSelection
+            
+            
+            
+            
+                
+        )#End of sidebarMenu body
+        
+        
+        
+        
+    ),#end of dashboardSideBar body
+    
+    dashboardBody(
+        
+        
+    ),
+    
+    
+    
+    
 )
 
 # Define server logic required to draw a histogram
