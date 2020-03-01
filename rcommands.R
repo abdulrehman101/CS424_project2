@@ -1,4 +1,5 @@
 library(lubridate)
+library(stringr)
 # reading in data, not sure if this is correct, document says some sort of preprocessing is required, search alot but came up with this
 # this reads in all the data
 atlantic <- read.csv(file="atlantic.csv",sep=",",header = FALSE,stringsAsFactors = FALSE)
@@ -51,14 +52,14 @@ hurrYear <- subset(atlantic, year(V1) == year)
 
 hurricaneList = list()
 for(row in 1:nrow(hurrYear)){
-  if(hurrYear[row,"names"] == 'UNNAMED'){
+  if( hurrYear[row,"names"] == '            UNNAMED'){
     hurricaneList[length(hurricaneList) + 1] = hurrYear[row,"V21"] 
   }
   else{
     hurricaneList[length(hurricaneList) + 1] = hurrYear[row,"names"]
   }
 }
-
+hurrYear[1,'names']
 
 
 
