@@ -46,8 +46,13 @@ atlantic$V1 <- as.Date(atlantic$V1, format = "%Y%m%d")
 
 # take out data for a particular year
 
-year = list(2018)
+year = list(2008,2010)
 hurrYear <- subset(atlantic, year(V1) == year)
+
+# take out data of a particular day
+
+date = c("2008-06-01")
+hurrYear <- subset(hurrYear,V1 == date)
 
 # list of names of hurricanes
 
