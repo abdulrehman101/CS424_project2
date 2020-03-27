@@ -19,7 +19,7 @@ count = 0
 hurricane = ""
 hurrNames = ""
 
-for(row in 1:nrow(atlantic)){
+for(row in 53183:nrow(atlantic)){
   if(count == 0){
     count = as.numeric(atlantic[row,"V3"])
     hurricane = atlantic[row,"V1"]
@@ -31,6 +31,7 @@ for(row in 1:nrow(atlantic)){
     count = count - 1
   }
 }
+
 rm(count)
 rm(row)
 rm(hurrNames)
@@ -46,13 +47,13 @@ atlantic$V1 <- as.Date(atlantic$V1, format = "%Y%m%d")
 
 # take out data for a particular year
 
-year = list(2008,2010)
+year = list(1851,2010)
 hurrYear <- subset(atlantic, year(V1) == year)
 
 # take out data of a particular day
 
-date = c("2008-06-01")
-hurrYear <- subset(hurrYear,V1 == date)
+#date = c("2008-06-01")
+#hurrYear <- subset(hurrYear,V1 == date)
 
 # list of names of hurricanes
 
@@ -70,8 +71,9 @@ hurricaneList <- data.frame("names" = matrix(unlist(hurricaneList)),stringsAsFac
 hurricaneList <- distinct(hurricaneList)
 hurricaneList$names <- trimws(hurricaneList$names)
 
-hurrYear[1,'names']
+# top 10 hurricanes
 
+top10Winds <- subset(atlantic,year(V1) >= 2005)
 
 
 
