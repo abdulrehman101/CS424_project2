@@ -17,7 +17,7 @@ library(dplyr)
 
 # reading in data, not sure if this is correct, document says some sort of preprocessing is required, search alot but came up with this
 # this reads in all the data
-atlantic <- read.csv(file="./atlantic2.csv",sep=",",header = FALSE,stringsAsFactors = FALSE)
+atlantic <- read.csv(file="./atlantic.csv",sep=",",header = FALSE,stringsAsFactors = FALSE)
 
 #can't use columns I guess because there is 3 col row for every hurricane
 hurricanes <- subset(atlantic,V4=="")
@@ -164,6 +164,10 @@ server <- function(input, output, session) {
   
   output$mymap <- renderLeaflet({
     {
+      
+      
+      
+      
       leaflet() %>% 
         addTiles() %>%
         addPolylines(lat = ISAAC$lat, lng = ISAAC$lon, color = "red") %>%
