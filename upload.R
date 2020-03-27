@@ -49,6 +49,10 @@ rm(count)
 rm(row)
 rm(hurrNames)
 rm(hurricane)
+hurrName = atlantic$names[1]
+#list of hurricanes beginning 2005
+
+hurrNames = subset(atlantic, V4 == "")
 
 # now we can remove those weird a** rows
 

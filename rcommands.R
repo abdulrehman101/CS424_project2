@@ -47,8 +47,10 @@ atlantic$V1 <- as.Date(atlantic$V1, format = "%Y%m%d")
 
 # take out data for a particular year
 
-year = list(1851,2010)
+year = list(2005,2018)
 hurrYear <- subset(atlantic, year(V1) == year)
+# from 2005 and onwards
+atlantic <- subset(atlantic, year(V1) >= 2005)
 
 # take out data of a particular day
 
@@ -67,6 +69,7 @@ for(row in 1:nrow(hurrYear)){
   }
 }
 
+
 hurricaneList <- data.frame("names" = matrix(unlist(hurricaneList)),stringsAsFactors=FALSE)
 hurricaneList <- distinct(hurricaneList)
 hurricaneList$names <- trimws(hurricaneList$names)
@@ -75,14 +78,46 @@ hurricaneList$names <- trimws(hurricaneList$names)
 
 top10Winds <- subset(atlantic,year(V1) >= 2005)
 
+cl=colors()[1:500]
 
+color <- data.frame(cl)
 
+set.seed(42)
+delete <- sample(nrow(color))
+color <- color[delete,]
 
+color <- as.character(color)
+#color <- data.frame(color)
 
+colorName = color[1]
+ColorNumber = 1
+atlantic$color <- "asdf"
+hurrName = atlantic$names[1]
+for(row in 1:nrow(atlantic)){
+  if(atlantic[row,"names"] == hurrName){
+    atlantic[row,"color"] <- colorName
+  }
+  else{
+    hurrName <- atlantic[row,"names"]
+    ColorNumber = ColorNumber + 1
+    colorName = color[ColorNumber]
+    atlantic[row,"color"] <- colorName
+  }
+}
 
-
-
-
-
-
+atlantic$size <- 0
+for(row in 1:nrow(atlantic)){
+  if((atlantic[row,"V7"] >= 0) & (atlantic[row,"V7"] < 40)){
+    atlantic[row,"size"] = 2
+  }
+  else if((atlantic[row,"V7"] >= 40) & (atlantic[row,"V7"] < 80)){
+    atlantic[row,"size"] = 4
+  }
+  else if((atlantic[row,"V7"] >= 80) & (atlantic[row,"V7"] < 120)){
+    atlantic[row,"size"] = 6
+  }
+  else{
+    atlantic[row,"size"] = 8
+  }
+}
 
