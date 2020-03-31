@@ -121,3 +121,58 @@ for(row in 1:nrow(atlantic)){
   }
 }
 
+testAtlantic <- atlantic
+testAtlantic <- rbind(testAtlantic,testAtlantic[1,])
+
+# this code creates hurname05_18 that has all the hurricanes in choronological order(Date)
+# you can copy paste this in your code assuming your environment has atlantic dataframe
+
+name <- atlantic[1,"names"]
+hurrnames05_18 <- atlantic[1,]
+for(row in 1:nrow(atlantic)){
+  if(atlantic[row,"names"] == name){
+  }
+  else{
+    hurrnames05_18 <- rbind(hurrnames05_18,atlantic[row,])
+    name <- atlantic[row,"names"]
+  }
+}
+
+# this code create hurrnames_maxWSpeed_05_18 that has all the hurricanes with their max speed
+
+hurrnames_maxWSpeed_05_18 <- atlantic 
+hurrnames_maxWSpeed_05_18 <- aggregate(hurrnames_maxWSpeed_05_18$V7,by=list(hurrnames_maxWSpeed_05_18$names),FUN=max)
+colnames(hurrnames_maxWSpeed_05_18)
+  # renaming columns
+names(hurrnames_maxWSpeed_05_18)[names(hurrnames_maxWSpeed_05_18) == "Group.1"] <- "Hurricanes"
+names(hurrnames_maxWSpeed_05_18)[names(hurrnames_maxWSpeed_05_18) == "x"] <- "MaxWindSpeed"
+  # sorting in DESC wrt MaxSpeed
+hurrnames_maxWSpeed_05_18 <- hurrnames_maxWSpeed_05_18[order(-hurrnames_maxWSpeed_05_18$MaxWindSpeed),]
+
+
+# this code create hurrnames_minPressure_05_18 that has all the hurricanes with their max speed
+
+hurrnames_minPressure_05_18 <- atlantic 
+hurrnames_minPressure_05_18 <- aggregate(hurrnames_minPressure_05_18$V8,by=list(hurrnames_minPressure_05_18$names),FUN=min)
+colnames(hurrnames_minPressure_05_18)
+# renaming columns
+names(hurrnames_minPressure_05_18)[names(hurrnames_minPressure_05_18) == "Group.1"] <- "Hurricanes"
+names(hurrnames_minPressure_05_18)[names(hurrnames_minPressure_05_18) == "x"] <- "MinPressure"
+# sorting in ASC wrt MinSpeed
+hurrnames_minPressure_05_18 <- hurrnames_minPressure_05_18[order(hurrnames_minPressure_05_18$MinPressure),]
+
+
+maxWindPlot <- ggplot() +
+  geom_line(data = maxWind, aes(x = V1, y = V7.x), color = "black")+ 
+  geom_line(data = maxWind, aes(x = V1, y = V7.y), color = "blue")+
+  xlab('Date')+
+  ylab('Wind Speed')
+
+minPressurePlot <- ggplot() +
+  geom_line(data = minPressure, aes(x = V1, y = V7.x), color = "black")+ 
+  geom_line(data = minPressure, aes(x = V1, y = V7.y), color = "blue")+
+  xlab('Date')+
+  ylab('Minimum Pressure')
+
+maxWindPlot
+minPressurePlot
